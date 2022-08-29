@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+// Insert JS code here
+
+let array = ["rock", "paper", "scissors"];
+
+function getComputerChoice() {
+    return array[Math.floor(Math.random()*array.length)];
+}
+
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection.toLowerCase() != "rock" &&
+        playerSelection.toLowerCase() != "paper" &&
+        playerSelection.toLowerCase() != "scissors") {
+            return("Error. Please enter rock, paper, or scissors")
+        } else if  (playerSelection == computerSelection) {
+            return(`You tied! ${playerSelection} ties with ${computerSelection}`);
+        } else if (playerSelection.toLowerCase() == "rock" && computerSelection.toLowerCase() == "scissors" ||
+                playerSelection.toLowerCase() == "scissors" && computerSelection.toLowerCase() == "paper" ||
+                playerSelection.toLowerCase() == "paper" && computerSelection.toLowerCase() == "rock") {
+            return(`You win! ${playerSelection} beats ${computerSelection}`);
+        } else {
+            return(`You lose! ${playerSelection} loses to ${computerSelection}`);
+        }
+    }
+    
+function game() {
+    for (let i = 0; i < 5; i++) {
+        console.log(playRound(prompt(), getComputerChoice()));
+    }
+}
+
+game();
+
+
+</script>
+
+</html>
