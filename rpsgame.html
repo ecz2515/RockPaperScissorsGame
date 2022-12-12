@@ -7,10 +7,15 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    
+    <h1> Play Rock Paper Scissors!</h1>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div id = "container"></div>
 </body>
 
 <script>
+
 // Insert JS code here
 
 let array = ["rock", "paper", "scissors"];
@@ -18,6 +23,11 @@ let array = ["rock", "paper", "scissors"];
 function getComputerChoice() {
     return array[Math.floor(Math.random()*array.length)];
 }
+
+var playerScore = 0;
+var computerScore = 0;
+var winner;
+const score = document.createElement('div');
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection.toLowerCase() != "rock" &&
@@ -29,20 +39,37 @@ function playRound(playerSelection, computerSelection) {
         } else if (playerSelection.toLowerCase() == "rock" && computerSelection.toLowerCase() == "scissors" ||
                 playerSelection.toLowerCase() == "scissors" && computerSelection.toLowerCase() == "paper" ||
                 playerSelection.toLowerCase() == "paper" && computerSelection.toLowerCase() == "rock") {
-            return(`You win! ${playerSelection} beats ${computerSelection}`);
-        } else {
-            return(`You lose! ${playerSelection} loses to ${computerSelection}`);
+                    playerScore += 1;
+                    if (playerScore == 5) {
+                        alert("You won the game! Reload the page to play again");
+                    } else {
+                        return(`You win! ${playerSelection} beats ${computerSelection}`);
+                    }
+                } else {
+            computerScore += 1;
+            if (computerScore == 5) {
+                alert("You lost the game! Reload the page to play again");
+            } else {
+                return(`You lose! ${playerSelection} loses to ${computerSelection}`);
+            }
         }
     }
-    
-function game() {
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound(prompt(), getComputerChoice()));
-    }
-}
 
-game();
+const buttons = document.querySelectorAll('button'); 
+const container = document.querySelector('div');
+const result = document.createElement('div');
+result.style.marginTop = '40px';
+score.style.marginTop = '40px';
 
+buttons.forEach((button) => 
+{
+    button.addEventListener('click', () => {
+        result.textContent = playRound(`${button.getAttribute('id')}`, `${getComputerChoice()}`);
+        score.textContent = `Player: ${playerScore}, Computer: ${computerScore}`;
+        container.appendChild(result);
+        container.appendChild(score);
+    });
+});
 
 </script>
 
